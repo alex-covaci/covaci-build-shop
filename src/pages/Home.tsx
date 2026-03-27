@@ -137,8 +137,8 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12 px-4">
+    
+      {/* <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="hidden md:block bg-white rounded-2xl p-8 shadow-lg -mt-20 relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -161,7 +161,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </div>
           </div>
 
-          {/* Mobile stats for smaller screens */}
+          
           <div className="md:hidden bg-white rounded-2xl p-6 shadow-lg -mt-12 relative z-10">
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center">
@@ -180,6 +180,46 @@ export default function Home({ onNavigate }: HomeProps) {
                 <div className="text-3xl font-bold mb-1">24/7</div>
                 <div className="text-sm text-gray-600">Поддержка</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+ <section className="py-16 px-4 bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
+              <Package className="w-12 h-12 text-blue-600 mb-4" />
+              <h3 className="text-2xl font-bold mb-3">
+                Строительные материалы
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Просмотрите наш обширный каталог строительных материалов:
+                цемент, кирпич, пиломатериалы и многое другое.
+              </p>
+              <button
+                onClick={() => onNavigate("products")}
+                className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center space-x-2"
+              >
+                <span>Просмотр материалов</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
+              <Wrench className="w-12 h-12 text-green-600 mb-4" />
+              <h3 className="text-2xl font-bold mb-3">Аренда оборудования</h3>
+              <p className="text-gray-600 mb-6">
+                Арендуйте профессиональное оборудование для ваших строительных
+                проектов по конкурентным ценам.
+              </p>
+              <button
+                onClick={() => onNavigate("equipment")}
+                className="text-green-600 font-semibold hover:text-green-700 inline-flex items-center space-x-2"
+              >
+                <span>Просмотр оборудования</span>
+                <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
@@ -247,45 +287,7 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-gradient-to-br from-slate-100 to-slate-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
-              <Package className="w-12 h-12 text-blue-600 mb-4" />
-              <h3 className="text-2xl font-bold mb-3">
-                Строительные материалы
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Просмотрите наш обширный каталог строительных материалов:
-                цемент, кирпич, пиломатериалы и многое другое.
-              </p>
-              <button
-                onClick={() => onNavigate("products")}
-                className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center space-x-2"
-              >
-                <span>Просмотр материалов</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition">
-              <Wrench className="w-12 h-12 text-green-600 mb-4" />
-              <h3 className="text-2xl font-bold mb-3">Аренда оборудования</h3>
-              <p className="text-gray-600 mb-6">
-                Арендуйте профессиональное оборудование для ваших строительных
-                проектов по конкурентным ценам.
-              </p>
-              <button
-                onClick={() => onNavigate("equipment")}
-                className="text-green-600 font-semibold hover:text-green-700 inline-flex items-center space-x-2"
-              >
-                <span>Просмотр оборудования</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       <section className="py-16 px-4 bg-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
