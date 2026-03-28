@@ -1,6 +1,5 @@
 # Resend — Налаштування email для КовачМаркет
 
-Інтеграція Resend з Supabase для відправки кастомних email листів через Edge Function.
 
 ---
 
