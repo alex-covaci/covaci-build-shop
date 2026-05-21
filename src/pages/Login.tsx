@@ -20,13 +20,18 @@ export default function Login({ onSwitchToRegister, onLoginSuccess, onNavigate }
     setError('');
     setLoading(true);
 
-    const { error: signInError } = await signIn(email, password);
+    try {
+      const { error: signInError } = await signIn(email, password);
 
-    if (signInError) {
-      setError(signInError.message);
+      if (signInError) {
+        setError(signInError.message);
+      } else {
+        onLoginSuccess();
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка подключения к серверу');
+    } finally {
       setLoading(false);
-    } else {
-      onLoginSuccess();
     }
   };
 
