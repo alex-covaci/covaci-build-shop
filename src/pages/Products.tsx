@@ -177,7 +177,7 @@ export default function Products({ onNavigate }: ProductsProps) {
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
                     {product.image_url ? (
@@ -215,7 +215,7 @@ export default function Products({ onNavigate }: ProductsProps) {
                     <button
                       onClick={() => addToCart(product)}
                       disabled={product.stock_quantity === 0 || addingToCart === product.id}
-                      className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                      className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:scale-[1.02] active:scale-95"
                     >
                       <ShoppingCart className="w-5 h-5" />
                       <span>

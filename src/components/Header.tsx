@@ -150,14 +150,14 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
             {/* Правая часть */}
             <div className="flex items-center space-x-3">
               {/* Избранное */}
-              <button className="p-2 text-gray-600 hover:text-brand-dark transition">
+              <button className="p-2 text-gray-600 hover:text-brand-dark transition hover:scale-110 active:scale-95">
                 <Heart className="w-5 h-5" />
               </button>
 
               {/* Корзина */}
               <button
                 onClick={() => user ? onNavigate("cart") : onNavigate("login")}
-                className="relative p-2 text-gray-600 hover:text-brand-dark transition"
+                className="relative p-2 text-gray-600 hover:text-brand-dark transition hover:scale-110 active:scale-95"
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
@@ -172,7 +172,7 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
                   {isAdmin && (
                     <button
                       onClick={() => onNavigate("admin")}
-                      className="p-2 text-gray-600 hover:text-brand-dark transition"
+                      className="p-2 text-gray-600 hover:text-brand-dark transition hover:scale-110 active:scale-95"
                       title="Админ панель"
                     >
                       <Settings className="w-5 h-5" />
@@ -180,14 +180,14 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
                   )}
                   <button
                     onClick={() => onNavigate("cabinet")}
-                    className="p-2 text-gray-600 hover:text-brand-dark transition"
+                    className="p-2 text-gray-600 hover:text-brand-dark transition hover:scale-110 active:scale-95"
                     title={profile?.full_name || "Кабинет"}
                   >
                     <User className="w-5 h-5" />
                   </button>
                   <button
                     onClick={handleSignOut}
-                    className="p-2 text-gray-600 hover:text-red-500 transition"
+                    className="p-2 text-gray-600 hover:text-red-500 transition hover:scale-110 active:scale-95"
                     title="Выйти"
                   >
                     <LogOut className="w-5 h-5" />
@@ -196,7 +196,7 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
               ) : (
                 <button
                   onClick={() => onNavigate("login")}
-                  className="px-5 py-2 bg-brand text-gray-900 rounded font-semibold hover:bg-brand-dark transition"
+                  className="px-5 py-2 bg-brand text-gray-900 rounded font-semibold hover:bg-brand-dark transition hover:scale-105 active:scale-95"
                 >
                   Войти
                 </button>

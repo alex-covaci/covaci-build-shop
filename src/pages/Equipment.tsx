@@ -197,7 +197,7 @@ export default function EquipmentPage({ onNavigate }: EquipmentProps) {
               {equipment.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="h-48 bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
                     {item.image_url ? (
@@ -233,7 +233,7 @@ export default function EquipmentPage({ onNavigate }: EquipmentProps) {
                     </div>
                     <button
                       onClick={() => setSelectedEquipment(item)}
-                      className="w-full bg-green-600 text-white py-2 rounded-lg font-medium hover:bg-green-700 transition flex items-center justify-center space-x-2"
+                      className="w-full bg-green-600 text-white py-2 rounded-lg font-medium hover:bg-green-700 transition flex items-center justify-center space-x-2 hover:scale-[1.02] active:scale-95"
                     >
                       <Calendar className="w-5 h-5" />
                       <span>Запросить аренду</span>

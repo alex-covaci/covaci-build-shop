@@ -16,7 +16,13 @@ export default {
         },
       },
       animation: {
-        pageIn: 'pageIn 0.25s ease-out',
+        pageIn: 'pageIn 0.3s ease-out',
+      },
+      transitionDuration: {
+        DEFAULT: '200ms',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },
   },
