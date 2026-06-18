@@ -9,6 +9,7 @@ import Equipment from './pages/Equipment';
 import Cart from './pages/Cart';
 import Cabinet from './pages/Cabinet';
 import AdminDashboard from './pages/AdminDashboard';
+import PageTransition from './components/PageTransition';
 
 type Page = 'home' | 'login' | 'register' | 'products' | 'equipment' | 'cart' | 'cabinet' | 'admin';
 
@@ -18,6 +19,7 @@ function AppContent() {
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page as Page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (loading) {
@@ -33,35 +35,45 @@ function AppContent() {
 
   if (currentPage === 'login') {
     return (
-      <Login
-        onSwitchToRegister={() => setCurrentPage('register')}
-        onLoginSuccess={() => setCurrentPage('home')}
-        onNavigate={handleNavigate}
-      />
+      <PageTransition pageKey={currentPage}>
+        <Login
+          onSwitchToRegister={() => setCurrentPage('register')}
+          onLoginSuccess={() => setCurrentPage('home')}
+          onNavigate={handleNavigate}
+        />
+      </PageTransition>
     );
   }
 
   if (currentPage === 'register') {
     return (
-      <Register
-        onSwitchToLogin={() => setCurrentPage('login')}
-        onRegisterSuccess={() => setCurrentPage('home')}
-        onNavigate={handleNavigate}
-      />
+      <PageTransition pageKey={currentPage}>
+        <Register
+          onSwitchToLogin={() => setCurrentPage('login')}
+          onRegisterSuccess={() => setCurrentPage('home')}
+          onNavigate={handleNavigate}
+        />
+      </PageTransition>
     );
   }
 
   if (currentPage === 'admin') {
-    return <AdminDashboard onNavigate={handleNavigate} />;
+    return (
+      <PageTransition pageKey={currentPage}>
+        <AdminDashboard onNavigate={handleNavigate} />
+      </PageTransition>
+    );
   }
 
   return (
     <Layout onNavigate={handleNavigate} currentPage={currentPage}>
-      {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
-      {currentPage === 'products' && <Products onNavigate={handleNavigate} />}
-      {currentPage === 'equipment' && <Equipment onNavigate={handleNavigate} />}
-      {currentPage === 'cart' && <Cart onNavigate={handleNavigate} />}
-      {currentPage === 'cabinet' && <Cabinet onNavigate={handleNavigate} />}
+      <PageTransition pageKey={currentPage}>
+        {currentPage === 'home' && <Home onNavigate={handleNavigate} />}
+        {currentPage === 'products' && <Products onNavigate={handleNavigate} />}
+        {currentPage === 'equipment' && <Equipment onNavigate={handleNavigate} />}
+        {currentPage === 'cart' && <Cart onNavigate={handleNavigate} />}
+        {currentPage === 'cabinet' && <Cabinet onNavigate={handleNavigate} />}
+      </PageTransition>
     </Layout>
   );
 }

@@ -4,8 +4,6 @@ import {
   ShoppingCart,
   User,
   LogOut,
-  Wrench,
-  Package,
   Settings,
   MapPin,
   Clock,
