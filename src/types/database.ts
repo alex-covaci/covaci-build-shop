@@ -82,6 +82,7 @@ export type Database = {
           description: string | null
           id: string
           image_url: string | null
+          images: string[]
           is_available: boolean | null
           name: string
           updated_at: string | null
@@ -94,6 +95,7 @@ export type Database = {
           description?: string | null
           id?: string
           image_url?: string | null
+          images?: string[]
           is_available?: boolean | null
           name: string
           updated_at?: string | null
@@ -106,6 +108,7 @@ export type Database = {
           description?: string | null
           id?: string
           image_url?: string | null
+          images?: string[]
           is_available?: boolean | null
           name?: string
           updated_at?: string | null
@@ -202,6 +205,7 @@ export type Database = {
           description: string | null
           id: string
           image_url: string | null
+          images: string[]
           is_active: boolean | null
           name: string
           price: number
@@ -215,6 +219,7 @@ export type Database = {
           description?: string | null
           id?: string
           image_url?: string | null
+          images?: string[]
           is_active?: boolean | null
           name: string
           price: number
@@ -228,6 +233,7 @@ export type Database = {
           description?: string | null
           id?: string
           image_url?: string | null
+          images?: string[]
           is_active?: boolean | null
           name?: string
           price?: number
