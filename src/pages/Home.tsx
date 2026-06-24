@@ -10,6 +10,7 @@ import { supabase } from "../lib/supabase";
 import type { Database } from "../types/database";
 
 type Category = Database["public"]["Tables"]["categories"]["Row"];
+type Equipment = Database["public"]["Tables"]["equipment"]["Row"];
 
 
 interface HomeProps {
@@ -27,11 +28,23 @@ const CATEGORY_IMAGES: Record<string, string> = {
   трубы: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=400&auto=format&fit=crop",
 };
 
+const EQUIPMENT_IMAGES: Record<string, string> = {
+  default: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?q=80&w=600&auto=format&fit=crop",
+  экскаватор: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600&auto=format&fit=crop",
+  погрузчик: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop",
+  кран: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=600&auto=format&fit=crop",
+  бульдозер: "https://images.unsplash.com/photo-1561955553-6dc6aa0cd5fb?q=80&w=600&auto=format&fit=crop",
+  каток: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?q=80&w=600&auto=format&fit=crop",
+};
+
 
 export default function Home({ onNavigate }: HomeProps) {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [equipment, setEquipment] = useState<Equipment[]>([]);
+
   useEffect(() => {
     loadCategories();
+    loadEquipment();
   }, []);
 
   const loadCategories = async () => {
@@ -42,6 +55,25 @@ export default function Home({ onNavigate }: HomeProps) {
       .order("name")
       .limit(6);
     if (data) setCategories(data);
+  };
+
+  const loadEquipment = async () => {
+    const { data } = await supabase
+      .from("equipment")
+      .select("*")
+      .eq("is_available", true)
+      .order("name")
+      .limit(3);
+    if (data) setEquipment(data);
+  };
+
+  const getEquipmentImage = (item: Equipment): string => {
+    if (item.image_url) return item.image_url;
+    const nameLower = item.name.toLowerCase();
+    const matchedKey = Object.keys(EQUIPMENT_IMAGES).find((key) =>
+      nameLower.includes(key)
+    );
+    return matchedKey ? EQUIPMENT_IMAGES[matchedKey] : EQUIPMENT_IMAGES.default;
   };
 
    // Функция для получения изображения категории
@@ -208,6 +240,144 @@ export default function Home({ onNavigate }: HomeProps) {
             </div>
           )}
 
+        </div>
+      </section>
+
+       {/* ===== СЕКЦИЯ "АРЕНДА ТЕХНИКИ" ===== */}
+      <section className="py-14 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-10">
+
+            {/* Левая часть — заголовок и кнопка */}
+            <div className="lg:w-64 flex-shrink-0 flex flex-col justify-center">
+              {/* Лейбл "АРЕНДА ТЕХНИКИ" */}
+              <div className="flex items-center space-x-2 mb-3">
+                <div className="w-4 h-4 bg-yellow-400 rounded-sm flex-shrink-0" />
+                <span className="text-xs font-bold text-yellow-500 uppercase tracking-widest">
+                  Аренда техники
+                </span>
+              </div>
+
+              <h2 className="text-2xl font-bold text-gray-900 leading-tight mb-4">
+                Надёжная техника<br />
+                для любых задач
+              </h2>
+
+              <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                Аренда строительной и спецтехники на выгодных условиях. Опытные операторы и полное техническое обслуживание.
+              </p>
+
+              <button
+                onClick={() => onNavigate("equipment")}
+                className="inline-flex items-center space-x-2 px-6 py-3 bg-yellow-400 text-gray-900 font-semibold rounded hover:bg-yellow-500 transition w-fit"
+              >
+                <span>Посмотреть технику</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Правая часть — карточки техники */}
+            <div className="flex-1 relative">
+              {equipment.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {equipment.map((item) => (
+                    <div
+                      key={item.id}
+                      className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+                    >
+                      {/* Фото */}
+                      <div className="h-44 bg-gray-50 overflow-hidden">
+                        <img
+                          src={getEquipmentImage(item)}
+                          alt={item.name}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+
+                      {/* Информация */}
+                      <div className="p-4">
+                        <h3 className="font-semibold text-gray-800 text-sm mb-2 leading-tight">
+                          {item.name}
+                        </h3>
+                        <p className="text-yellow-500 font-bold text-sm mb-3">
+                          от {item.daily_rate.toLocaleString("ru-RU")} грн
+                          <span className="text-gray-400 font-normal text-xs"> / смена</span>
+                        </p>
+                        <button
+                          onClick={() => onNavigate("equipment")}
+                          className="w-full py-2 border border-gray-300 text-gray-700 text-sm rounded hover:border-yellow-400 hover:text-yellow-500 transition"
+                        >
+                          Подробнее
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* Скелетон пока загружается */
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="border border-gray-200 rounded-lg overflow-hidden">
+                      <div className="h-44 bg-gray-100 animate-pulse" />
+                      <div className="p-4 space-y-2">
+                        <div className="h-4 bg-gray-100 rounded animate-pulse w-3/4" />
+                        <div className="h-4 bg-gray-100 rounded animate-pulse w-1/2" />
+                        <div className="h-8 bg-gray-100 rounded animate-pulse mt-3" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+          </div>
+        </div>
+
+        {/* ===== ПОЛОСА С 4 ПРЕИМУЩЕСТВАМИ ===== */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 border-t border-gray-100 pt-10">
+
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 flex-shrink-0 bg-yellow-50 rounded-full flex items-center justify-center">
+                <ShieldCheck className="w-5 h-5 text-yellow-500" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">Большой опыт</p>
+                <p className="text-xs text-gray-500">более 10 лет на рынке</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 flex-shrink-0 bg-yellow-50 rounded-full flex items-center justify-center">
+                <Wrench className="w-5 h-5 text-yellow-500" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">Индивидуальный подход</p>
+                <p className="text-xs text-gray-500">подберём решение для вас</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 flex-shrink-0 bg-yellow-50 rounded-full flex items-center justify-center">
+                <Package className="w-5 h-5 text-yellow-500" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">Гибкие условия</p>
+                <p className="text-xs text-gray-500">для постоянных клиентов</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 flex-shrink-0 bg-yellow-50 rounded-full flex items-center justify-center">
+                <Truck className="w-5 h-5 text-yellow-500" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">Быстрая доставка</p>
+                <p className="text-xs text-gray-500">в день заказа</p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
